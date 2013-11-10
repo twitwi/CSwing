@@ -1,15 +1,25 @@
 
 #include "javahelper.h"
 #include <jni.h>
+#include <stdlib.h>
 
 #ifdef __linux__
+#include <dlfcn.h>
 #define VVVVVM \
-  JNI_CreateJavaVM(&jvm, (void **)&env, &args);
+    const char* jvmdllpath = getenv("JVMDLL"); \
+    fprintf(stderr, "Opening JVMDLL: '%s'\n", jvmdllpath); \
+    void* lib = dlopen(jvmdllpath, RTLD_NOW|RTLD_GLOBAL); \
+    typedef jint (*fpCJV)(JavaVM**, void**, void*); \
+    fpCJV CreateJavaVM; \
+    CreateJavaVM = dlsym(lib, "JNI_CreateJavaVM"); \
+    /*JNI_*/CreateJavaVM(&jvm, (void **)&env, &args);
 #else
 #include <windows.h>
 #define VVVVVM \
     HINSTANCE hVM; \
-    hVM = LoadLibrary("C:\\Program Files\\Java\\jre7\\bin\\client\\jvm.dll"); \
+    const char* jvmdllpath = getenv("JVMDLL") ? getenv("JVMDLL") : "C:\\Program Files\\Java\\jre7\\bin\\client\\jvm.dll"; \
+    fprintf(stderr, "Opening JVMDLL: '%s'\n", jvmdllpath); \
+    hVM = LoadLibrary(jvmdllpath); \
     if (hVM == NULL) { \
     	    DWORD dwe = GetLastError(); \
     	    return (JNIEnv*)-1; \
@@ -34,7 +44,11 @@ JNIEnv* a___createJVM() {
     args.nOptions = 1;
     //options[0].optionString = "-Djava.class.path=c:\\projects\\local\\inonit\\cls";
     //options[0].optionString = "-Djava.class.path=*";
-    options[0].optionString = "-Djava.class.path=cswing/CSwingJava-1.1-SNAPSHOT.jar";
+    const char* cswingjar = getenv("CSWINGJAR") ? getenv("CSWINGJAR") : "cswing/CSwingJava-1.1-SNAPSHOT.jar";
+    char* buff = malloc(4096);
+    fprintf(stderr, "Using CSWINGJAR: '%s'\n", cswingjar);
+    snprintf(buff, 4000, "-Djava.class.path=%s", cswingjar);
+    options[0].optionString = buff;
     args.options = options;
     args.ignoreUnrecognized = JNI_FALSE;
 
