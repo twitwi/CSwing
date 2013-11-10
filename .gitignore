@@ -1,3 +1,8 @@
+
+*~
+*/CSwingJava/target
+
+
 # Object files
 *.o
 *.ko
@@ -16,3 +21,4 @@
 *.exe
 *.out
 *.app
+/abstract/CSwingJava/target/
