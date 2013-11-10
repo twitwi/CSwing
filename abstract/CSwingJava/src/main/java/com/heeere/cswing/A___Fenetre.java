@@ -69,7 +69,7 @@ public class A___Fenetre {
         a___maybeRepaint();
     }
     
-    public void a____line(float x1, float y1, float x2, float y2) {
+    public void a___line(float x1, float y1, float x2, float y2) {
         Graphics2D g = a___backBuffer.createGraphics();
         g.setColor(a___currentColor);
         g.draw(new Line2D.Float(x1, y1, x2, y2));
@@ -247,6 +247,11 @@ public class A___Fenetre {
 
     public boolean a___isClosed() {
         return !f.isVisible();
+    }
+
+    public void a___close() {
+        f.setVisible(false);
+        f.dispose();
     }
 
 }

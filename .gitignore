@@ -1,7 +1,7 @@
 
 *~
 */CSwingJava/target
-
+hs_err_pid*.log
 
 # Object files
 *.o
