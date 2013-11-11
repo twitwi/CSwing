@@ -1,6 +1,8 @@
 "Window" "Fenetre CSwing"
 "file:" "Fichier :"
 Error-while-saving-file Erreur de sauvegarde du fichier
+"cswing/CSwingJava-1.1-SNAPSHOT.jar" "CSwingJava-1.1-fr.jar"
+<version>1.1-SNAPSHOT</version> <version>1.1-fr</version>
 A___JavaObject ObjetJava
 A___INVOKE INVOQUER
 A___Fenetre Fenetre

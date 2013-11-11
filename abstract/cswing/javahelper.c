@@ -6,7 +6,7 @@
 #ifdef __linux__
 #include <dlfcn.h>
 #define VVVVVM \
-    const char* jvmdllpath = getenv("JVMDLL"); \
+    const char* jvmdllpath = getenv("JVMDLL") ? getenv("JVMDLL") : "/usr/lib/jvm/default-java/jre/lib/amd64/server/libjvm.so";     \
     fprintf(stderr, "Opening JVMDLL: '%s'\n", jvmdllpath); \
     void* lib = dlopen(jvmdllpath, RTLD_NOW|RTLD_GLOBAL); \
     typedef jint (*fpCJV)(JavaVM**, void**, void*); \
