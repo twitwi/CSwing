@@ -1,3 +1,4 @@
+
 CSwing
 ======
 
@@ -7,6 +8,11 @@ This library has been designed for educational purpose (teaching C) but it is ne
 
 In practice this library interfaces the Java Virtual Machine to use its graphical primitives.
 
+
+## Building and testing in multiple languages (current status)
+
+    ./apply-mapping.sh map-en-abstract
+    ./apply-mapping.sh map-fr-fr
 
 
 ## The API in your language

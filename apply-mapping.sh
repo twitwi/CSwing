@@ -2,6 +2,8 @@
 lang=$(basename $1)
 lang=${lang#map-*}
 
+test -f map-$lang || (echo "map-$lang not found" && false) || exit
+
 sedopt=$(  cat map-$lang | awk "{rest=\$2; for (i=3;i<=NF;i++) {rest = rest \" \" \$i}; printf( \"-e 's@%s@%s@g' \", \$1, rest) }"  )
 
 
