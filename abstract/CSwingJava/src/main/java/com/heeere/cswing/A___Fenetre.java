@@ -136,7 +136,7 @@ public class A___Fenetre {
             ext = a___fileName.replaceFirst("^.*[.]", "");
             ImageIO.write(a___output, ext, new File(a___fileName));
         } catch (IOException ex) {
-            System.out.println(String.format("Error while saving file '%s' (format %s)\n %s\n", a___fileName, ext, ex.getMessage()));
+            System.out.println(String.format("Error-while-saving-file '%s' (format %s)\n %s\n", a___fileName, ext, ex.getMessage()));
         }
     }
     

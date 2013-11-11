@@ -65,5 +65,6 @@ int main(int argc, char** argv) {
         a___waitFor(f, 3);
     }
     a___waitClosing(f);
+    return 0;
 }
 

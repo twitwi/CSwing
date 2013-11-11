@@ -1,5 +1,6 @@
 "Window" "Fenetre CSwing"
 "file:" "Fichier :"
+Error-while-saving-file Erreur de sauvegarde du fichier
 A___JavaObject ObjetJava
 A___INVOKE INVOQUER
 A___Fenetre Fenetre
