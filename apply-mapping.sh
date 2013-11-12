@@ -43,4 +43,4 @@ unset CSWINGJAR
 
 (cd $lang/CSwingJava/ && mvn install)
 (cd $lang/CSwingJava/ && cp target/CSwingJava-*.jar ../cswing/)
-(cd $lang/cswing/ && make && make ,,test && ./,,test)
+(cd $lang/cswing/ && make && make ../cswing.zip && make ,,test && ./,,test)
