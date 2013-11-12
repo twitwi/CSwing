@@ -15,4 +15,4 @@ a___libcswing.a: cswing.o javahelper.o
 	$(CC) $(CFLAGSVM) -c $< -o $@
 
 ,,test: test-cswing.c a___libcswing.a 
-	$(CC) $+ -ldl -o $@
+	$(CC) $+ -ldl -I ./ -o $@
