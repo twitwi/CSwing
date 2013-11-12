@@ -11,7 +11,7 @@ if test "$JVMDLL" == "" ; then
     export JVMDLL=$(find "$ProgramFiles/Java" -name jvm.dll  | sort  |tail -1)
 else
     # found, linux like
-    CSWING="$w/libcswing-fr.a -ldl"
+    CSWING="$w/a___libcswing.a -ldl"
 fi
 
 if test "$JVMDLL" == "" ; then
