@@ -43,4 +43,4 @@ unset CSWINGJAR
 
 (cd $lang/CSwingJava/ && mvn install)
 (cd $lang/CSwingJava/ && cp target/CSwingJava-*.jar ../cswing/)
-(cd $lang/cswing/ && gcc -Wall -I/usr/lib/jvm/java-1.7.0-openjdk-amd64/include/ -I/usr/lib/jvm/java-1.7.0-openjdk-amd64/include/linux/ test-cswing.c cswing.c javahelper.c -L/usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/lib/amd64/server -ldl -o ,,test && ./,,test && rm -f ,,test)
+(cd $lang/cswing/ && make && make ,,test && ./,,test)
