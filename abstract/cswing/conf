@@ -5,7 +5,7 @@ w=$(dirname $(readlink -f $BASH_SOURCE))
 
 export CSWINGJAR="$w/a___CSwingJava-1.1-SNAPSHOT.jar"
 
-export JVMDLL=$((find /usr/local/ -name libjvm.so ; find /usr/lib/jvm/ -name libjvm.so)  | sort  |tail -1)
+export JVMDLL=$((find /usr/local/ -name libjvm.so 2>/dev/null ; find /usr/lib/jvm/ -name libjvm.so 2>/dev/null)  | sort  |tail -1)
 
 if test "$JVMDLL" == "" ; then
     export JVMDLL=$(find "$ProgramFiles/Java" -name jvm.dll  | sort  |tail -1)
