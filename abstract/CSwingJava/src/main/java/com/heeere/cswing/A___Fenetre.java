@@ -2,8 +2,10 @@ package com.heeere.cswing;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Ellipse2D;
@@ -12,15 +14,22 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -28,6 +37,10 @@ import javax.swing.JLabel;
 public class A___Fenetre {
 
     JFrame f;
+    JPanel cp;
+    ImageIcon ii;
+    JLabel iil;
+    List<JComponent> a___widgets = new ArrayList<JComponent>();
     BufferedImage a___backBuffer = null;
     BufferedImage a___displayBuffer = null;
     Color a___currentColor = Color.WHITE;
@@ -37,11 +50,77 @@ public class A___Fenetre {
         f = new JFrame("Window");
         f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         f.setResizable(false);
-        f.setContentPane(new JLabel(new ImageIcon(a___backBuffer)));
+        cp = new JPanel(null);
+        cp.setPreferredSize(new Dimension(w, h));
+        f.setContentPane(cp);
+        ii = new ImageIcon(a___backBuffer);
+        iil = new JLabel(ii);
+        iil.setBounds(0, 0, w, h);
+        cp.add(iil);
         f.pack();
         f.setVisible(true);
     }
     
+    public void a___removeAllWidgets() {
+        for (JComponent c : a___widgets) {
+            cp.remove(c);
+        }
+        a___widgets.clear();
+    }
+    
+    public void a___addButton(final int id, int x1, int y1, int x2, int y2, String txt) {
+        JButton b = new JButton(new AbstractAction(txt) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                a___queue.offer(id);
+            }
+        });
+        a___widgets.add(b);
+        b.setBounds(x1, y1, x2-x1, y2-y1);
+        cp.remove(iil);
+        cp.add(b);
+        cp.add(iil);
+        cp.revalidate();
+    }
+    
+    public int a___addTextField(int x1, int y1, int x2, int y2) {
+        JTextField t = new JTextField();
+        a___widgets.add(t);
+        t.setBounds(x1, y1, x2-x1, y2-y1);
+        cp.remove(iil);
+        cp.add(t);
+        cp.add(iil);
+        cp.revalidate();
+        return a___widgets.indexOf(t);
+    }
+    
+    public String a___getTextField(int ind) {
+        if (ind >= 0 && ind < a___widgets.size()) {
+            JComponent w = a___widgets.get(ind);
+            if (w instanceof JTextField) {
+                return ((JTextField)w).getText();
+            } else {
+                System.out.println("get-wrong-text-field-type");
+            }
+        } else {
+            System.out.println("get-wrong-text-field-index");
+        }
+        return "";
+    }
+    
+    public void a___setTextField(int ind, String txt) {
+        if (ind >= 0 && ind < a___widgets.size()) {
+            JComponent w = a___widgets.get(ind);
+            if (w instanceof JTextField) {
+                ((JTextField)w).setText(txt);
+            } else {
+                System.out.println("set-wrong-text-field-type");
+            }
+        } else {
+            System.out.println("set-wrong-text-field-index");
+        }
+    }
+
     public void a___erase() {
         Graphics2D g = a___backBuffer.createGraphics();
         g.clearRect(0, 0, a___backBuffer.getWidth(), a___backBuffer.getHeight());
@@ -236,7 +315,7 @@ public class A___Fenetre {
                 
             });
         }
-        f.setContentPane(new JLabel(new ImageIcon(a___loopingMode ? a___displayBuffer : a___backBuffer)));
+        ii.setImage(a___loopingMode ? a___displayBuffer : a___backBuffer);
     }
     
     private void a___maybeRepaint() {
