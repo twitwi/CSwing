@@ -1,20 +1,40 @@
 
-# this file is meant to be sourced by bash (on any OS)
+# this file is meant to be sourced with "." by bash (on any OS, need a special function in windows (to set the BASH_SOURCE))
 
-w=$(dirname $(readlink -f $BASH_SOURCE))
+if which readlink ; then
+    w=$(dirname $(readlink -f "$BASH_SOURCE"))
+else
+    w="$(pwd)/$(dirname "$BASH_SOURCE")"
+fi
 
 export CSWINGJAR="$w/a___CSwingJava-1.2-SNAPSHOT.jar"
 
-export JVMDLL=$((find /usr/local/ -name libjvm.so 2>/dev/null ; find /usr/lib/jvm/ -name libjvm.so 2>/dev/null)  | sort  |tail -1)
+JVMDLL=
 
-if test "$JVMDLL" == "" ; then
-    export JVMDLL=$(find "$ProgramFiles/Java" -name jvm.dll  | sort  |tail -1)
-else
-    # found, linux like
-    CSWING="$w/a___libcswing.a -ldl -I $w"
+if test -d /usr/lib/jvm/ ; then
+    export JVMDLL="$((find /usr/lib/jvm/ -name libjvm.so 2>/dev/null)  | sort  |tail -1)"
 fi
 
-if test "$JVMDLL" == "" ; then
+if test "$JVMDLL" = "" && test -d "$ProgramFiles" ; then
+    # on windows we will build with tcc using tccj (and without a static lib)
+    jdkinclude=$(dirname "$(find "$ProgramFiles" -name jni.h | head -1)")
+    jdkincludemd=$(dirname "$(find "$jdkinclude" -name jni_md.h | head -1)")
+    jdkbase=$(dirname "$jdkinclude")
+    jdklib=$(dirname "$(find "$jdkbase" -name jvm.dll | head -1)")
+    jdkbin=$(dirname "$(find "$jdkbase" -name java.exe | head -1)")
+    jdkmsvcr=$(dirname "$(find "$jdkbase" -name msvcr100.dll | head -1)")
+    
+    export PATH="$jdkmsvcr:$PATH"
+    export JVMDLL="$(find "$jdkbase" -name jvm.dll | head -1)"
+    function tccj() {
+        tcc -I "$jdkinclude" -I "$jdkincludemd" -I "$w/" "$w/cswing.c" "$w/javahelper.c" "$@"
+    }
+else
+    # found, linux like
+    CSWING="$w/libcswing-fr-t.a -ldl -I $w"
+fi
+
+if test "$JVMDLL" = "" ; then
     echo "WARNING: could not find jvm dynamic library, please set JVMDLL manually"
 else
     # found, windows
