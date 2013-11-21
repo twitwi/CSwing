@@ -8,7 +8,6 @@ a___libcswing.a libcswing-en.a
 A___JavaObject JavaObject
 A___INVOKE INVOKE
 A___Fenetre Window
-a___waitWithKeyboard waitWithKeyboard
 a___waitFor waitFor
 a___waitClosing waitClosing
 a___toggleLoopingMode toggleLoopingMode
@@ -19,14 +18,12 @@ a___red red
 a___rectangle rectangle
 a___queue queue
 a___previousWait previousWait
-a___pressedKey pressedKey
 a___output output
 a___nextFireInstant nextFireInstant
 a___maybeRepaint maybeRepaint
 a___loopingMode loopingMode
 a___line line
 a___left left
-a___lastKeyPress lastKeyPress
 a___isClosed isClosed
 a___invoke invoke
 a___initialize initialize
@@ -55,3 +52,23 @@ a___borderColor borderColor
 a___blue blue
 a___bgColor bgColor
 a___backBuffer backBuffer
+
+a___get-wrong-text-field-type wrong type for widget
+a___get-wrong-text-field-index wrong index for widget
+
+a___widgets widgets
+a___waitWithEvent waitWithEvent
+a___sliderValue sliderValue
+a___setTextField setTextField
+a___setSlider setSlider
+a___removeAllWidgets removeAllWidgets
+a___lastEvent lastEvent
+a___getWidget getWidget
+a___getTextField getTextField
+a___getSlider getSlider
+a___firedEvent firedEvent
+a___event event
+a___addWidget addWidget
+a___addTextField addTextField
+a___addSlider addSlider
+a___addButton addButton
