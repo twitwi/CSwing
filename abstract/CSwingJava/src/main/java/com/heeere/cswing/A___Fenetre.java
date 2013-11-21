@@ -83,8 +83,14 @@ public class A___Fenetre {
         cp.revalidate();
     }
     
-    public int a___addTextField(int x1, int y1, int x2, int y2) {
+    public int a___addTextField(final int a___event, int x1, int y1, int x2, int y2) {
         JTextField t = new JTextField();
+        t.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                a___queue.add(a___event);
+            }
+        });
         a___widgets.add(t);
         t.setBounds(x1, y1, x2-x1, y2-y1);
         cp.remove(iil);

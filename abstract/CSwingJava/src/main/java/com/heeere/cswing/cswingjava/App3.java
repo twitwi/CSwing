@@ -19,7 +19,7 @@ public class App3 {
         f.a___initialize(800, 600);
         f.a___toggleLoopingMode();
         f.a___addButton(38, 10, 10, 100, 30, "up");
-        int txtId = f.a___addTextField(10, 30, 100, 50);
+        int txtId = f.a___addTextField(99, 10, 30, 100, 50);
         f.a___addButton(100, 10, 50, 100, 70, "magic");
         int x = 400;
         int y = 50;
