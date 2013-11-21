@@ -7,8 +7,8 @@ A___Fenetre a___create2(int w, int h);
 
 void a___erase(A___Fenetre f);
 void a___waitFor(A___Fenetre f, int ms);
-int a___waitWithKeyboard(A___Fenetre f, int ms);
-int a___pressedKey(A___Fenetre f);
+int a___waitWithEvent(A___Fenetre f, int ms);
+int a___firedEvent(A___Fenetre f);
 void a___color(A___Fenetre f, float a___red, float a___green, float a___blue);
 
 void a___circle(A___Fenetre f, float a___cx, float a___cy, float r);

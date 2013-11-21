@@ -99,10 +99,10 @@ public class A___Fenetre {
             if (cl.isInstance(w)) {
                 return (T)w;
             } else {
-                System.out.println("get-wrong-text-field-type "+cl.getName());
+                System.out.println("a___get-wrong-text-field-type "+ind+" "+cl.getName());
             }
         } else {
-            System.out.println("get-wrong-text-field-index "+cl.getName());
+            System.out.println("a___get-wrong-text-field-index "+ind+" "+cl.getName());
         }
         return null;
     }

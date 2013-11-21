@@ -25,12 +25,12 @@ void a___waitFor(A___Fenetre f, int ms) {
     a___invokeI((A___JavaObject) f, "a___waitFor", ms);
 }
 
-int a___waitWithKeyboard(A___Fenetre f, int ms) {
-    return a___invokeIReturnBoolean((A___JavaObject) f, "a___waitWithKeyboard", ms);
+int a___waitWithEvent(A___Fenetre f, int ms) {
+    return a___invokeIReturnBoolean((A___JavaObject) f, "a___waitWithEvent", ms);
 }
 
-int a___pressedKey(A___Fenetre f) {
-    return a___invokeReturnInt((A___JavaObject) f, "a___pressedKey");
+int a___firedEvent(A___Fenetre f) {
+    return a___invokeReturnInt((A___JavaObject) f, "a___firedEvent");
 }
 
 void a___color(A___Fenetre f, float a___red, float a___green, float a___blue) {
