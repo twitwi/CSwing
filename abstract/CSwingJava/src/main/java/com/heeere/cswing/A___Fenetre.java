@@ -156,9 +156,9 @@ public class A___Fenetre {
         return -1;
     }
 
-    public void a___setSlider(int ind, int v) {
+    public void a___setSlider(int ind, int a___sliderValue) {
         JSlider s = a___getWidget(ind, JSlider.class);
-        if (s != null) s.setValue(v);
+        if (s != null) s.setValue(a___sliderValue);
     }
 
     public void a___erase() {

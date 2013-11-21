@@ -15,6 +15,7 @@ a___waitClosing attendreFermeture
 a___toggleLoopingMode basculerModeBoucle
 a___textColor couleurTexte
 a___text texte
+a___sliderValue valeurZeroAMille
 a___size taille
 a___setTextField changerChampTexte
 a___setSlider changerSlider
