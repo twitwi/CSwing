@@ -78,3 +78,26 @@ void a___close(A___Fenetre f) {
 }
 
 
+
+// 
+void a___addButton(A___Fenetre f, int a___event, int x1, int y1, int x2, int y2, const char* txt) {
+    a___invokeIIIIIS((A___JavaObject) f, "a___addButton", a___event, x1, y1, x2, y2, txt);
+}
+int a___addSlider(A___Fenetre f, int a___event, int x1, int y1, int x2, int y2) {
+    a___invokeIIIIIReturnInt((A___JavaObject) f, "a___addSlider", a___event, x1, y1, x2, y2);
+}
+int a___getSlider(A___Fenetre f, int id) {
+    a___invokeIReturnInt((A___JavaObject) f, "a___getSlider", id);
+}
+void a___setSlider(A___Fenetre f, int id, int a___sliderValue) {
+    a___invokeII((A___JavaObject) f, "a___setSlider", id, a___sliderValue);
+}
+int a___addTextField(A___Fenetre f, int a___event, int x1, int y1, int x2, int y2) {
+    a___invokeIIIIIReturnInt((A___JavaObject) f, "a___addTextField", a___event, x1, y1, x2, y2);
+}
+void a___getTextField(A___Fenetre f, int id, char* out) {
+    a___invokeISout((A___JavaObject) f, "a___getTextField", id, out);
+}
+void a___setTextField(A___Fenetre f, int id, const char* txt) {
+    a___invokeIS((A___JavaObject) f, "a___setTextField", id, txt);
+}

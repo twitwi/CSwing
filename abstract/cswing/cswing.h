@@ -26,3 +26,15 @@ void a___exportImage(A___Fenetre f, const char* a___fileName);
 int a___isClosed(A___Fenetre f);
 void a___waitClosing(A___Fenetre f);
 void a___close(A___Fenetre f);
+
+
+// 
+void a___addButton(A___Fenetre f, int a___event, int x1, int y1, int x2, int y2, const char* txt);
+
+int a___addSlider(A___Fenetre f, int a___event, int x1, int y1, int x2, int y2);
+int a___getSlider(A___Fenetre f, int id);
+void a___setSlider(A___Fenetre f, int id, int a___sliderValue);
+
+int a___addTextField(A___Fenetre f, int a___event, int x1, int y1, int x2, int y2);
+void a___getTextField(A___Fenetre f, int id, char* out);
+void a___setTextField(A___Fenetre f, int id, const char* txt);

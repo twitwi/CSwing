@@ -2,6 +2,7 @@
 #include "javahelper.h"
 #include <jni.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifdef __linux__
 #include <dlfcn.h>
@@ -106,6 +107,20 @@ int a___invokeIReturnBoolean(A___JavaObject o, const char* _meth, int p1) {
     return 0x1 & (*e)->CallBooleanMethod(e, o, meth, p1);
 }
 
+int a___invokeIReturnInt(A___JavaObject o, const char* _meth, int p1) {
+    JNIEnv* e = a___ensureInited();
+    jclass cl = (*e)->GetObjectClass(e, o);
+    jmethodID meth = (*e)->GetMethodID(e, cl, _meth, "(I)I");
+    return (*e)->CallIntMethod(e, o, meth, p1);
+}
+
+int a___invokeIIIIIReturnInt(A___JavaObject o, const char* _meth, int p1, int p2, int p3, int p4, int p5) {
+    JNIEnv* e = a___ensureInited();
+    jclass cl = (*e)->GetObjectClass(e, o);
+    jmethodID meth = (*e)->GetMethodID(e, cl, _meth, "(IIIII)I");
+    return (*e)->CallIntMethod(e, o, meth, p1, p2, p3, p4, p5);
+}
+
 void a___invokeI(A___JavaObject o, const char* _meth, int p1) {
     A___INVOKE("(I)V", p1);
 }
@@ -126,8 +141,30 @@ void a___invokeFFFF(A___JavaObject o, const char* _meth, float p1, float p2, flo
     A___INVOKE("(FFFF)V", p1, p2, p3, p4);
 }
 
+void a___invokeIIIII(A___JavaObject o, const char* _meth, int p1, int p2, int p3, int p4, int p5) {
+    A___INVOKE("(IIIII)V", p1, p2, p3, p4, p5);
+}
+
+void a___invokeIIIIIS(A___JavaObject o, const char* _meth, int p1, int p2, int p3, int p4, int p5, const char* p6) {
+    A___INVOKE("(IIIIILjava/lang/String;)V", p1, p2, p3, p4, p5, (*e)->NewStringUTF(e, p6));
+}
+
 void a___invokeS(A___JavaObject o, const char* _meth, const char* p1) {
     A___INVOKE("(Ljava/lang/String;)V", (*e)->NewStringUTF(e, p1));
+}
+
+void a___invokeIS(A___JavaObject o, const char* _meth, int p1, const char* p2) {
+    A___INVOKE("(ILjava/lang/String;)V", p1, (*e)->NewStringUTF(e, p2));
+}
+
+void a___invokeISout(A___JavaObject o, const char* _meth, int p1, char* out1) {
+    JNIEnv* e = a___ensureInited();
+    jclass cl = (*e)->GetObjectClass(e, o);
+    jmethodID meth = (*e)->GetMethodID(e, cl, _meth, "(I)Ljava/lang/String;");
+    jstring res = (*e)->CallObjectMethod(e, o, meth, p1);
+    const char* utf = (*e)->GetStringUTFChars(e, res, NULL);
+    strcpy(out1, utf);
+    (*e)->ReleaseStringUTFChars(e, res, utf);
 }
 
 
