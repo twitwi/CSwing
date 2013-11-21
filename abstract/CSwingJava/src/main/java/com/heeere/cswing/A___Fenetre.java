@@ -4,10 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
@@ -29,7 +31,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -78,6 +83,30 @@ public class A___Fenetre {
         a___widgets.clear();
     }
     
+    private int a___addWidget(JComponent t, int x1, int y1, int x2, int y2) {
+        a___widgets.add(t);
+        t.setBounds(x1, y1, x2-x1, y2-y1);
+        cp.remove(iil);
+        cp.add(t);
+        cp.add(iil);
+        cp.revalidate();
+        return a___widgets.indexOf(t);
+    }
+    
+    private <T> T a___getWidget(int ind, Class<T> cl) {
+        if (ind >= 0 && ind < a___widgets.size()) {
+            JComponent w = a___widgets.get(ind);
+            if (cl.isInstance(w)) {
+                return (T)w;
+            } else {
+                System.out.println("get-wrong-text-field-type "+cl.getName());
+            }
+        } else {
+            System.out.println("get-wrong-text-field-index "+cl.getName());
+        }
+        return null;
+    }
+
     public void a___addButton(final int a___event, int x1, int y1, int x2, int y2, String txt) {
         JButton b = new JButton(new AbstractAction(txt) {
             @Override
@@ -85,12 +114,7 @@ public class A___Fenetre {
                 a___queue.offer(a___event);
             }
         });
-        a___widgets.add(b);
-        b.setBounds(x1, y1, x2-x1, y2-y1);
-        cp.remove(iil);
-        cp.add(b);
-        cp.add(iil);
-        cp.revalidate();
+        a___addWidget(b, x1, y1, x2, y2);
     }
     
     public int a___addTextField(final int a___event, int x1, int y1, int x2, int y2) {
@@ -101,40 +125,40 @@ public class A___Fenetre {
                 a___queue.add(a___event);
             }
         });
-        a___widgets.add(t);
-        t.setBounds(x1, y1, x2-x1, y2-y1);
-        cp.remove(iil);
-        cp.add(t);
-        cp.add(iil);
-        cp.revalidate();
-        return a___widgets.indexOf(t);
+        return a___addWidget(t, x1, y1, x2, y2);
     }
     
     public String a___getTextField(int ind) {
-        if (ind >= 0 && ind < a___widgets.size()) {
-            JComponent w = a___widgets.get(ind);
-            if (w instanceof JTextField) {
-                return ((JTextField)w).getText();
-            } else {
-                System.out.println("get-wrong-text-field-type");
-            }
-        } else {
-            System.out.println("get-wrong-text-field-index");
-        }
+        JTextField t = a___getWidget(ind, JTextField.class);
+        if (t != null) return t.getText();
         return "";
     }
     
     public void a___setTextField(int ind, String txt) {
-        if (ind >= 0 && ind < a___widgets.size()) {
-            JComponent w = a___widgets.get(ind);
-            if (w instanceof JTextField) {
-                ((JTextField)w).setText(txt);
-            } else {
-                System.out.println("set-wrong-text-field-type");
+        JTextField t = a___getWidget(ind, JTextField.class);
+        if (t != null) t.setText(txt);
+    }
+    
+    public int a___addSlider(final int a___event, int x1, int y1, int x2, int y2) {
+        JSlider s = new JSlider(0, 1000, 0);
+        s.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                a___queue.add(a___event);
             }
-        } else {
-            System.out.println("set-wrong-text-field-index");
-        }
+        });
+        return a___addWidget(s, x1, y1, x2, y2);
+    }
+    
+    public int a___getSlider(int ind) {
+        JSlider s = a___getWidget(ind, JSlider.class);
+        if (s != null) return s.getValue();
+        return -1;
+    }
+
+    public void a___setSlider(int ind, int v) {
+        JSlider s = a___getWidget(ind, JSlider.class);
+        if (s != null) s.setValue(v);
     }
 
     public void a___erase() {
@@ -322,14 +346,6 @@ public class A___Fenetre {
         a___loopingMode = !a___loopingMode;
         if (a___displayBuffer == null) { // first time we switch to the looping mode
             a___displayBuffer = new BufferedImage(a___backBuffer.getWidth(), a___backBuffer.getHeight(), a___backBuffer.getType());
-            f.addKeyListener(new KeyAdapter() {
-
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    a___queue.add(e.getKeyCode());
-                }
-                
-            });
         }
         ii.setImage(a___loopingMode ? a___displayBuffer : a___backBuffer);
     }
