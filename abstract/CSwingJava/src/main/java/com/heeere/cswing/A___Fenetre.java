@@ -39,7 +39,7 @@ public class A___Fenetre {
     JFrame f;
     JPanel cp;
     ImageIcon ii;
-    JLabel iil;
+    JButton iil;
     List<JComponent> a___widgets = new ArrayList<JComponent>();
     BufferedImage a___backBuffer = null;
     BufferedImage a___displayBuffer = null;
@@ -54,8 +54,18 @@ public class A___Fenetre {
         cp.setPreferredSize(new Dimension(w, h));
         f.setContentPane(cp);
         ii = new ImageIcon(a___backBuffer);
-        iil = new JLabel(ii);
+        iil = new JButton() {{
+            setBorderPainted(false);
+            setContentAreaFilled(false);
+        }};
+        iil.setIcon(ii);
         iil.setBounds(0, 0, w, h);
+        iil.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                a___queue.add(e.getKeyCode());
+            }
+        });
         cp.add(iil);
         f.pack();
         f.setVisible(true);
