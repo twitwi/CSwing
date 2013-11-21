@@ -68,11 +68,11 @@ public class A___Fenetre {
         a___widgets.clear();
     }
     
-    public void a___addButton(final int id, int x1, int y1, int x2, int y2, String txt) {
+    public void a___addButton(final int a___event, int x1, int y1, int x2, int y2, String txt) {
         JButton b = new JButton(new AbstractAction(txt) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                a___queue.offer(id);
+                a___queue.offer(a___event);
             }
         });
         a___widgets.add(b);
@@ -248,7 +248,7 @@ public class A___Fenetre {
 
     private BlockingQueue<Integer> a___queue = new ArrayBlockingQueue<Integer>(1000);
     public Long a___nextFireInstant = null;
-    public boolean a___waitWithKeyboard(int ms) {
+    public boolean a___waitWithEvent(int ms) {
         if (!a___loopingMode) {
             throw new IllegalStateException();
         }
@@ -259,7 +259,7 @@ public class A___Fenetre {
         if (a___previousWait == null) {
             a___previousWait = now - ms;
         }
-        // this is an initial call (not a continuation after a key stroke
+        // this is an initial call (not a continuation after an avent)
         if (a___nextFireInstant == null) {
             a___nextFireInstant = a___previousWait + ms;
             a___previousWait += ms;
@@ -267,27 +267,27 @@ public class A___Fenetre {
         // get or wait
         long towait = a___nextFireInstant - now;
         try {
-            a___lastKeyPress = a___queue.poll(towait, TimeUnit.MILLISECONDS);
-            if (a___lastKeyPress == null) {
+            a___lastEvent = a___queue.poll(towait, TimeUnit.MILLISECONDS);
+            if (a___lastEvent == null) {
                 a___nextFireInstant = null;
             }
-            return a___lastKeyPress != null;
+            return a___lastEvent != null;
         } catch (InterruptedException ex) {
             Logger.getLogger(A___Fenetre.class.getName()).log(Level.SEVERE, null, ex);
         }
         // interruption (not a normal case...)
-        a___lastKeyPress = null;
+        a___lastEvent = null;
         return false;
     }
-    private Integer a___lastKeyPress = null;
-    public int a___pressedKey() {
+    private Integer a___lastEvent = null;
+    public int a___firedEvent() {
         if (!a___loopingMode) {
             throw new IllegalStateException();
         }
-        if (a___lastKeyPress == null) {
+        if (a___lastEvent == null) {
             return -111;
         }
-        return a___lastKeyPress;
+        return a___lastEvent;
     }
 
     public void a___waitClosing() {

@@ -25,20 +25,19 @@ public class App3 {
         int y = 50;
         while (true) {
             do {
-                System.err.println(f.a___pressedKey());
-                switch (f.a___pressedKey()) {
+                System.err.println(f.a___firedEvent());
+                switch (f.a___firedEvent()) {
                     case 37: x -= 10; break;
                     case 39: x += 10; break;
                     case 38: y -= 10; break;
                     case 40: y += 10; break;
-                    case 100: f.a___setTextField(txtId, "3.141592");
-                        
+                    case 100: f.a___setTextField(txtId, "3.141592"); break;
                 }
                 f.a___erase();
                 String txt = f.a___getTextField(txtId);
                 f.a___disk(x, y, 20);
                 f.a___centeredText(x, y-20, 10, txt);
-            } while (f.a___waitWithKeyboard(1000));
+            } while (f.a___waitWithEvent(1000));
             y = y + 10;
             if (f.a___isClosed()) System.exit(0);
         }
