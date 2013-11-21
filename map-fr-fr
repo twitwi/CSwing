@@ -1,9 +1,9 @@
 "Window" "Fenetre CSwing"
 "file:" "Fichier : "
 Error-while-saving-file Erreur de sauvegarde du fichier
-"cswing/CSwingJava-1.2-SNAPSHOT.jar" "CSwingJava-1.2-fr.jar"
-a___CSwingJava-1.2-SNAPSHOT.jar CSwingJava-1.2-fr.jar
-<version>1.2-SNAPSHOT</version> <version>1.2-fr</version>
+"cswing/CSwingJava-1.3-SNAPSHOT.jar" "CSwingJava-1.3-fr.jar"
+a___CSwingJava-1.3-SNAPSHOT.jar CSwingJava-1.3-fr.jar
+<version>1.3-SNAPSHOT</version> <version>1.3-fr</version>
 a___libcswing32.a libcswing32-fr.a
 a___libcswing.a libcswing-fr.a
 A___JavaObject ObjetJava
