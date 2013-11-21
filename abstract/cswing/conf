@@ -3,7 +3,7 @@
 
 w=$(dirname $(readlink -f $BASH_SOURCE))
 
-export CSWINGJAR="$w/a___CSwingJava-1.1-SNAPSHOT.jar"
+export CSWINGJAR="$w/a___CSwingJava-1.2-SNAPSHOT.jar"
 
 export JVMDLL=$((find /usr/local/ -name libjvm.so 2>/dev/null ; find /usr/lib/jvm/ -name libjvm.so 2>/dev/null)  | sort  |tail -1)
 

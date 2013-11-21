@@ -45,7 +45,7 @@ JNIEnv* a___createJVM() {
     args.nOptions = 1;
     //options[0].optionString = "-Djava.class.path=c:\\projects\\local\\inonit\\cls";
     //options[0].optionString = "-Djava.class.path=*";
-    const char* cswingjar = getenv("CSWINGJAR") ? getenv("CSWINGJAR") : "cswing/CSwingJava-1.1-SNAPSHOT.jar";
+    const char* cswingjar = getenv("CSWINGJAR") ? getenv("CSWINGJAR") : "cswing/CSwingJava-1.2-SNAPSHOT.jar";
     char* buff = malloc(4096);
     fprintf(stderr, "Using CSWINGJAR: '%s'\n", cswingjar);
     snprintf(buff, 4000, "-Djava.class.path=%s", cswingjar);

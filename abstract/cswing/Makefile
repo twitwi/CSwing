@@ -14,5 +14,5 @@ a___libcswing.a: cswing.o javahelper.o
 %.o:%.c
 	$(CC) $(CFLAGSVM) -c $< -o $@
 
-,,test: test-cswing.c a___libcswing.a 
+,,test: test-cswing-events.c a___libcswing.a 
 	$(CC) $+ -ldl -I ./ -o $@
